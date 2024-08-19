@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     int s = 1;
     int p = 0;
     int c = 1;
-    int h = 1;
+    int h = 0;
     int d = 0;
     double input = -1;
     double start = -1;
@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
 
                 case 'h':
                 case 'H':
-                    h = 0;
+                    h = 1;
                     break;
 
                 case 'd':
@@ -78,11 +78,11 @@ int main(int argc, char* argv[]) {
                 if (d) fprintf(stderr,"DEBUG: Could not convert the input to a Double.\n\n");
             } else if (*endptr == '\0') {
                 //The entire input was converted
-                if (d) fprintf(stderr,"DEBUG: Successfully converted the input to a Double\n\n", num);
+                if (d) fprintf(stderr,"DEBUG: Successfully converted the input to a Double:  %lf.\n\n",num);
                 input = num;
             } else {
                 //The input was partially converted
-                if (d) fprintf(stderr,"DEBUG: Conversion partially successful. Number: %f, \n\t Unable to convert %s.\n\n", num, endptr);
+                if (d) fprintf(stderr,"DEBUG: Conversion partially successful. Number: %lf, \n\t Unable to convert %s.\n\n", num, endptr);
                 input = num;
             }
         }
@@ -225,15 +225,19 @@ double calculate(double input, double start, double precision, int d) {
 
 void result(double result, int format, int d) {
     int hours = (int)result;
-    if (d) fprintf(stderr,"\nDEBUG: Hours = %d\n",hours);
     int minutes = (int)((result- (double)hours)*60);
-    if (d) fprintf(stderr,"DEBUG: Minutes = %d\n",minutes);
+    int overnightguard = (int)result % 24;
+    if (d) {
+        fprintf(stderr,"\nDEBUG: Hours = %d\n",hours);
+        fprintf(stderr,"DEBUG: Minutes = %d\n",minutes);
+    }
+
 
     //if format = 1, use 12-hour time format
     if (format) hours = hours%12;
 
     printf("%02d:%02d",hours,minutes);
 
-    if (format) printf("%s",(result >= 12 ? " PM\n" : " AM\n"));
+    if (format) printf("%s",(overnightguard >= 12 ? " PM\n" : " AM\n"));
     printf("\n\n");
 }
