@@ -13,10 +13,10 @@ void result(double,int,int);
 double calculate(double,double,double,int);
 
 int main(int argc, char* argv[]) {
-    int s = 0;
+    int s = 1;
     int p = 0;
     int c = 1;
-    int h = 0;
+    int h = 1;
     int d = 0;
     double input = -1;
     double start = -1;
@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
                 //Manual start-time entry:
                 case 's':
                 case 'S':
-                    s=1;
+                    s=0;
                     break;
 
                 //Manual rounding precision value:
@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
 
                 case 'h':
                 case 'H':
-                    h = 1;
+                    h = 0;
                     break;
 
                 case 'd':
@@ -173,6 +173,15 @@ int main(int argc, char* argv[]) {
     printf("\nExpected out time is: ");
 
     result(input,c,d);
+
+    
+    char exit;
+    if (!d) {
+        while(exit != 'x'){
+            printf("\nEnter 'x' to close the program: ");
+            scanf(" %c",&exit);
+        }
+    }
 
     return(0);
 }
