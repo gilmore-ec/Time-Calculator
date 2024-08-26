@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
     int d = 0;
     double input = -1;
     double start = -1;
-    double precision = 0.05;
+    double precision = 0.1;
     for (int i = 1; i < argc; i++) {
             
         fprintf(stderr,"DEBUG: Argument %d: %s\n", i, argv[i]);
